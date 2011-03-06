@@ -1,0 +1,2 @@
+require 'railhead_memorize'
+
