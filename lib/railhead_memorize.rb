@@ -10,6 +10,7 @@ module RailheadMemorize
   module ClassMethods
 
     def memorize(key, options = {})
+      options.reverse_merge! :on_view => true
       class_eval <<-END
         alias #{key}_unmemorized #{key}
         before_create :initialize_memorized_#{key}
@@ -25,7 +26,12 @@ module RailheadMemorize
         def #{key}
           @#{key} ||= if respond_to?(:memorized_#{key})
             if not memorized_#{key}.blank?
-              MessagePack.unpack(memorized_#{key})
+              begin
+                MessagePack.unpack(memorized_#{key})
+              rescue
+                memorize_#{key}
+                #{key}
+              end
             elsif #{!!options[:on_view]}
               memorize_#{key}
               #{key}
@@ -58,4 +64,3 @@ end
 
 
 ActiveRecord::Base.send :include, RailheadMemorizeLoader
-

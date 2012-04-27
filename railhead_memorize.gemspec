@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name     = "railhead_memorize"
-  s.version  = "0.0.1"
-  s.date     = "2011-03-06"
+  s.version  = "0.0.3"
+  s.date     = "2012-04-27"
   s.summary  = "RailheadMemorize is a Ruby on Rails plugin that easily memorize model functions."
   s.email    = "nagybence@tipogral.hu"
   s.homepage = "http://github.com/nagybence/railhead_memorize"
@@ -16,4 +16,3 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--main", "README.rdoc"]
   s.extra_rdoc_files = ["README.rdoc"]
 end
-
