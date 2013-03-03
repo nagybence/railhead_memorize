@@ -20,7 +20,7 @@ module RailheadMemorize
         end
 
         def memorize_#{key}
-          update_attribute :memorized_#{key}, #{key}_unmemorized.to_msgpack if respond_to?(:memorized_#{key})
+          update_column :memorized_#{key}, #{key}_unmemorized.to_msgpack if respond_to?(:memorized_#{key})
         end
 
         def #{key}
