@@ -16,11 +16,11 @@ module RailheadMemorize
         before_create :initialize_memorized_#{key}
 
         def initialize_memorized_#{key}
-          self.memorized_#{key} = #{options[:default] ? options[:default].inspect : '[]'}.to_msgpack if respond_to?(:memorized_#{key})
+          self.memorized_#{key} = MessagePack.pack(#{options[:default] ? options[:default].inspect : '[]'}) if respond_to?(:memorized_#{key})
         end
 
         def memorize_#{key}
-          update_column :memorized_#{key}, #{key}_unmemorized.to_msgpack if respond_to?(:memorized_#{key}) and not frozen?
+          update_column :memorized_#{key}, MessagePack.pack(#{key}_unmemorized) if respond_to?(:memorized_#{key}) and not frozen?
         end
 
         def #{key}
