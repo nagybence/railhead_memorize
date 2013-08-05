@@ -1,4 +1,5 @@
 require 'active_support'
+require 'multi_json'
 
 
 module RailheadMemorize
@@ -16,18 +17,18 @@ module RailheadMemorize
         before_create :initialize_memorized_#{key}
 
         def initialize_memorized_#{key}
-          self.memorized_#{key} = MessagePack.pack(#{options[:default] ? options[:default].inspect : '[]'}) if respond_to?(:memorized_#{key})
+          self.memorized_#{key} = MultiJson.dump(#{options[:default] ? options[:default].inspect : '[]'}) if respond_to?(:memorized_#{key})
         end
 
         def memorize_#{key}
-          update_column :memorized_#{key}, MessagePack.pack(#{key}_unmemorized) if respond_to?(:memorized_#{key}) and not frozen?
+          update_column :memorized_#{key}, MultiJson.dump(#{key}_unmemorized) if respond_to?(:memorized_#{key}) and not frozen?
         end
 
         def #{key}
           @#{key} ||= if respond_to?(:memorized_#{key})
             if not memorized_#{key}.blank?
               begin
-                MessagePack.unpack(memorized_#{key})
+                MultiJson.load(memorized_#{key})
               rescue
                 memorize_#{key}
                 #{key}
