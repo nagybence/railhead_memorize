@@ -4,15 +4,11 @@ RailheadMemorize is a Ruby on Rails plugin that easily memorize model functions.
 
 == Installation
 
-Installation is available as gem (recommended):
+Add to your Gemfile:
 
-  config.gem 'railhead_memorize'
-
-Or as Rails plugin:
-
-  $ ruby script/plugin install git://github.com/nagybence/railhead_memorize.git
+  gem 'railhead_memorize'
 
 == License
 
-Copyright (c) 2011 Bence Nagy (nagybence@tipogral.hu), released under the MIT license.
+Copyright (c) 2011-2015 Bence Nagy (bence.nagy@gmail.com), released under the MIT license.
 

@@ -22,6 +22,7 @@ module RailheadMemorize
 
         def memorize_#{key}
           update_column :memorized_#{key}, MultiJson.dump(#{key}_unmemorized) if respond_to?(:memorized_#{key}) and not frozen?
+          @#{key} = nil
         end
 
         def #{key}
